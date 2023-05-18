@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <wiringPi.h>
 
 #define MOTOR_PIN 0     // Pino GPIO para acionar o motor de ventilador
 #define LED_PIN 1       // Pino GPIO para acionar o LED vermelho
@@ -25,6 +26,16 @@ void acionarEmergencia()
 
 int main(void)
 {
+    if (wiringPiSetup() == -1)
+    {
+        printf("Erro ao inicializar a biblioteca WiringPi.\n");
+        return 1;
+    }
+
+    pinMode(MOTOR_PIN, OUTPUT);    // Configura o pino como saída
+    pinMode(LED_PIN, OUTPUT);      // Configura o pino como saída
+    pinMode(BUZZER_PIN, OUTPUT);   // Configura o pino como saída
+
     while (1)
     {
         float temperatura = 0.0;  // Obtenha a leitura da temperatura do sensor (deve ser implementado)
